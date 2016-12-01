@@ -504,4 +504,4 @@ ReactSortableTree.defaultProps = {
     searchQuery: null,
 };
 
-export default dndWrapRoot(ReactSortableTree);
+export default ReactSortableTree;
