@@ -1,5 +1,5 @@
 {
-  "name": "react-sortable-tree",
+  "name": "react-sortable-tree-fork",
   "version": "0.1.6",
   "description": "Drag-and-drop sortable representation of hierarchical data",
   "scripts": {
@@ -11,7 +11,7 @@
     "clean:umd": "rimraf dist/umd",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
     "lint": "eslint src",
-    "prepublish": "npm run lint && npm run test && npm run build:umd",
+    "prepublish": "npm run build:umd",
     "test": "cross-env NODE_ENV=test karma start --single-run",
     "test:watch": "cross-env NODE_ENV=test karma start",
     "deploy": "npm run build && gh-pages -d build"

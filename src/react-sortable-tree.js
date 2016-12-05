@@ -404,6 +404,7 @@ class ReactSortableTree extends Component {
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
+                    lowerSiblingCounts={lowerSiblingCounts}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
                 />
