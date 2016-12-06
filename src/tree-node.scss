@@ -1,4 +1,5 @@
 .node {
+    position: relative;
     min-width: 100%;
     white-space: nowrap;
 }
@@ -15,6 +16,7 @@
     Line-overlaid blocks used for showing the tree structure
    ========================================================================== */
 .lineBlock {
+    right: -6px;
     height: 100%;
     position: relative;
     display: inline-block;
@@ -102,7 +104,7 @@
 /* Highlight line for pointing to dragged row destination
    ========================================================================== */
 $highlight-color: #36C2F6;
-$highlight-line-size: 8px; // Make it an even number for clean rendering
+$highlight-line-size: 2px; // Make it an even number for clean rendering
 
 /**
  * +--+--+
@@ -123,39 +125,6 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
         left: 50%;
         top: 0;
         height: 100%;
-    }
-
-    @keyframes arrow-pulse {
-        $base-multiplier: 10;
-        0% {
-            transform: translate(0, 0);
-            opacity: 0;
-        }
-        30% {
-            transform: translate(0, 30% * $base-multiplier);
-            opacity: 1;
-        }
-        70% {
-            transform: translate(0, 70% * $base-multiplier);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(0, 100% * $base-multiplier);
-            opacity: 0;
-        }
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        height: 0;
-        margin-left: -1 * $highlight-line-size / 2;
-        left: 50%;
-        top: 0;
-        border-left: $highlight-line-size / 2 solid transparent;
-        border-right: $highlight-line-size / 2 solid transparent;
-        border-top: $highlight-line-size / 2 solid white;
-        animation: arrow-pulse 1s infinite linear both;
     }
 }
 
@@ -190,7 +159,7 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * +-----+
  */
 .highlightBottomLeftCorner {
-    $arrow-size: 12px;
+    $arrow-size: 10px;
     z-index: 3;
 
     &::before {
@@ -209,11 +178,11 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
         content: '';
         position: absolute;
         height: 0;
-        right: 0;
+        right: 5px;
         top: 100%;
-        margin-top: -1 * $arrow-size ;
-        border-top: $arrow-size solid transparent;
-        border-bottom: $arrow-size solid transparent;
-        border-left: $arrow-size solid $highlight-color;
+        margin-top: -$arrow-size / 2 ;
+        border-top: $arrow-size / 2 solid transparent;
+        border-bottom: $arrow-size / 2 solid transparent;
+        border-left: $arrow-size / 2 solid $highlight-color;
     }
 }

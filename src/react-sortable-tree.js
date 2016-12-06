@@ -5,10 +5,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
-import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
-import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
 import {
@@ -46,9 +43,6 @@ class ReactSortableTree extends Component {
         this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndType);
 
         // Prepare scroll-on-drag options for this list
-        this.scrollZoneVirtualList = withScrolling(List);
-        this.vStrength             = createVerticalStrength(props.slideRegionSize);
-        this.hStrength             = createHorizontalStrength(props.slideRegionSize);
 
         this.state = {
             draggingTreeData: null,
@@ -305,6 +299,7 @@ class ReactSortableTree extends Component {
             className,
             innerStyle,
             rowHeight,
+            rowWidth,
         } = this.props;
         const {
             rows,
@@ -320,44 +315,15 @@ class ReactSortableTree extends Component {
         // Seek to the focused search result if there is one specified
         const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
 
-        const ScrollZoneVirtualList = this.scrollZoneVirtualList;
 
         return (
-            <div
-                className={styles.tree + (className ? ` ${className}` : '')}
-                style={{ height: '100%', ...style }}
-                ref={(el) => { this.containerRef = el; }}
-            >
-                <AutoSizer>
-                    {({height, width}) => (
-                        <ScrollZoneVirtualList
-                            {...scrollToInfo}
-                            verticalStrength={this.vStrength}
-                            horizontalStrength={this.hStrength}
-                            speed={30}
-                            scrollToAlignment="start"
-                            className={styles.virtualScrollOverride}
-                            width={width}
-                            scrollTop={scrollToPixel}
-                            onScroll={({ scrollTop }) => { this.scrollTop = scrollTop; }}
-                            height={height}
-                            style={innerStyle}
-                            rowCount={rows.length}
-                            estimatedRowSize={rowHeight}
-                            rowHeight={rowHeight}
-                            rowRenderer={({ index, key, style: rowStyle }) => this.renderRow(
-                                rows[index],
-                                index,
-                                key,
-                                rowStyle,
-                                () => (rows[index - 1] || null),
-                                matchKeys
-                            )}
-                            {...this.props.reactVirtualizedListProps}
-                        />
-                    )}
-                </AutoSizer>
-            </div>
+          <div className={styles.tree + (className ? ` ${className}` : '')}
+               ref={(el) => { this.containerRef = el; }}
+               style={{ height: '100%', position: 'relative',  ...style}}>
+            {rows.map((row, index) => this.renderRow(
+                      row, index, index, {height: rowHeight, width: '100%'},
+                      () => (rows[index - 1] || null), matchKeys))}
+          </div>
         );
     }
 
